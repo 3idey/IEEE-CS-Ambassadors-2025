@@ -1,0 +1,188 @@
+/*
+Hey
+*/
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define vi vector<int>
+#define vll vector<ll>
+#define pii pair<int, int>
+#define pll pair<ll, ll>
+#define vii vector<pii>
+#define vpll vector<pll>
+#define mii map<int, int>
+#define pb push_back
+#define all(x) x.begin(), x.end()
+#define IOS                  \
+    ios::sync_with_stdio(0); \
+    cin.tie(0);              \
+    cout.tie(0);
+#define setp(x) cout << fixed << setprecision(x)
+#define countOnes(x) __builtin_popcount(x)
+#define countOnesll(x) __builtin_popcountll(x)
+#define clz(x) __builtin_clz(x)
+int gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
+int lcm(ll a, ll b) { return a / gcd(a, b) * b; }
+vll divisors(ll n)
+{
+    vll ret;
+    for (ll i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            ret.pb(i);
+            if (i * i != n)
+                ret.pb(n / i);
+        }
+    }
+
+    return ret;
+}
+bool is_prime(ll n)
+{
+    if (n == 1 || n == 0)
+        return 0;
+    else if (n == 2)
+        return 1;
+    else if (n % 2 == 0)
+        return 0;
+    for (ll i = 2; i * i <= n; i++)
+    {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}
+vpll primeFactors(ll n)
+{
+    vpll ret;
+    for (ll i = 2; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            int cnt = 0;
+            while (n % i == 0)
+            {
+                n /= i;
+                cnt++;
+                ret.pb({i, cnt});
+            }
+        }
+    }
+    if (n > 1)
+        ret.pb({n, 1});
+
+    return ret;
+}
+ll power(ll a, ll b)
+{
+    if (b == 0)
+        return 1;
+    ll x = power(a, b / 2);
+    x *= x;
+    if (b % 2 != 0)
+        x *= a;
+    return x;
+}
+bool odd(int n) { return n & 1 ? true : false; }
+bool ispowerof2(int n) { return n & (n - 1) == 0 ? true : false; }
+bool isset_bit(int n, int k) { return (n & (1 << k)) != 0; }
+void toggle_bit(int &n, int k) { n ^= (1 << k); }
+void set_bit(int &n, int k) { n |= (1 << k); }
+void unset_bit(int &n, int k) { n &= ~(1 << k); }
+const int MOD = 1e9 + 7;
+template <typename T>
+ostream &operator<<(ostream &os, vector<T> &v)
+{
+    for (auto &i : v)
+        os << i << ' ';
+    return os;
+}
+ostream &operator<<(ostream &os, const pii &p)
+{
+    os << p.first << ' ' << p.second;
+    return os;
+}
+template <typename T>
+istream &operator>>(istream &is, vector<T> &v)
+{
+    for (auto &i : v)
+        is >> i;
+    return is;
+}
+
+void A7MD()
+{
+    int n, query;
+    cin >> n >> query;
+
+    string txt;
+    cin >> txt;
+
+    int x, y, pos;
+
+    while (query--)
+    {
+
+        string op;
+        cin >> op;
+
+        if (op == "pop_back")
+        {
+            txt.pop_back();
+        }
+        else if (op == "front")
+        {
+            cout << txt.front() << endl;
+        }
+        else if (op == "back")
+        {
+            cout << txt.back() << endl;
+        }
+        else if (op == "sort")
+        {
+            cin >> x >> y;
+            if (x > y)
+                swap(x, y);
+
+            sort(txt.begin() + x - 1, txt.begin() + y);
+        }
+        else if (op == "reverse")
+        {
+            cin >> x >> y;
+            if (x > y)
+                swap(x, y);
+            reverse(txt.begin() + x - 1, txt.begin() + y);
+        }
+        else if (op == "print")
+        {
+            cin >> pos;
+            cout << txt[pos - 1] << endl;
+        }
+        else if (op == "substr")
+        {
+            cin >> x >> y;
+            if (x > y)
+                swap(x, y);
+
+            string ans = txt.substr(x - 1, (y - x) + 1);
+            cout << ans << endl;
+        }
+        else
+        {
+            char v;
+            cin >> v;
+            txt.push_back(v);
+        }
+    }
+}
+signed main()
+{
+    // freopen(".in", "r", stdin);
+    IOS;
+    int t = 1;
+    // cin>>t;
+    while (t--)
+        A7MD();
+    return 0;
+}
